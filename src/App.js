@@ -9,27 +9,33 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   
   const addNote = (note) => {
-    console.log("in addNote")
-    // setNotes((prevValue) => ({
-    //   ...prevValue,
-    //   note
-    // }))
+    setNotes(prevNotes => {
+      return [...notes, note];
+    });
+  }
+
+  const deleteNote = (id) => {
+    console.log(id)
+    setNotes(prevNotes => {
+      return prevNotes.filter((note, index) => {
+        return index !== id;
+      })
+    })
   }
 
   return (
         <div>
             <Header />
-
             <CreateArea onAdd={addNote}/>
-
-            {/* {notes.map((note) => (
+            {notes.map((note, index) => (
                 <Note
-                    key={note.key}
+                    key={index}
+                    id={index}
                     title={note.title}
                     content={note.content}
+                    onDelete={deleteNote}
                 />
-            ))} */}
-
+            ))}
             <Footer />
         </div>
     );

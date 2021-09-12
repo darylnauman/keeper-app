@@ -15,6 +15,12 @@ const CreateArea = (props) => {
         }));
     };
 
+    const submitNote = (event) => {
+      props.onAdd(note);
+      event.preventDefault();
+      setNote({title:"", content:""})
+    }
+
     return (
         <form>
             <input
@@ -22,18 +28,17 @@ const CreateArea = (props) => {
                 type="text"
                 placeholder="Title"
                 name="title"
+                value={note.title}
             />
             <textarea
                 onChange={handleChange}
                 placeholder="Take a note..."
                 name="content"
                 rows="3"
+                value={note.content}
             />
             <button
-                onClick={() => {
-                    props.onAdd(note);
-                    setNote({ title: "", content: "" });
-                }}
+                onClick={submitNote}
             >
               Add
             </button>
